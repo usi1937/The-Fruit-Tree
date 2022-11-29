@@ -1,14 +1,14 @@
 let modInfo = {
-	name: "The Easy Tree",
-	id: "mymod",
+	name: "The Fruit Tree",
+	id: "mymoda",
 	author: "usi1947",
-	pointsName: "points",
+	pointsName: "Seed",
 	modFiles: ["layers.js", "tree.js"],
 
 	discordName: "",
 	discordLink: "",
-	initialStartPoints: new Decimal (10), // Used for hard resets and new players
-	offlineLimit: 1,  // In hours
+	initialStartPoints: new Decimal (0), // Used for hard resets and new players
+	offlineLimit: 1000,  // In hours
 }
 
 // Set your version in num and name
@@ -19,8 +19,10 @@ let VERSION = {
 
 let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.0</h3><br>
-		- Added things.<br>
-		- Added stuff.`
+		11/29/2022
+		- Rebranded to the Fruit Tree.<br>
+		- Apple layer
+		- Banana layer with a few upgrades`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
 
@@ -43,9 +45,16 @@ function getPointGen() {
 		return new Decimal(0)
 
 	let gain = new Decimal(1)
-	if (hasUpgrade('m', 11)) gain = gain.times(2)
-	if (hasUpgrade('m', 12)) gain = gain.times(2)
-	if (hasUpgrade('m', 13)) gain = gain.times(3)
+	if (hasUpgrade('a', 11)) gain = gain.times(2)
+	if (hasUpgrade('a', 12)) gain = gain.times(2)
+	if (hasUpgrade('a', 13)) gain = gain.times(3)
+	if (hasUpgrade('a', 14)) gain = gain.times(player.a.points.sqrt().add(1))
+	if (hasUpgrade('a', 21)) gain = gain.times(1.5)
+	if (hasUpgrade('a', 23)) gain = gain.times(5)
+	if (hasUpgrade('a', 24)) gain = gain.times(3)
+	if (hasUpgrade('a', 25)) gain = gain.times(3)
+
+	if (hasUpgrade('b', 11)) gain = gain.times(3)
 	return gain
 }
 
