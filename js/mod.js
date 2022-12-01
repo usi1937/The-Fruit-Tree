@@ -18,10 +18,13 @@ let VERSION = {
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<h3>v0.0</h3><br>
-		11/29/2022
+	<h3>v1.1</h3><br><br>
+		12/1/2022<br>
+		-More banana upgrades and milestones<br>
+		-Coconut layer with an upgrade<br><br>
+		11/29/2022<br>
 		- Rebranded to the Fruit Tree.<br>
-		- Apple layer
+		- Apple layer<br>
 		- Banana layer with a few upgrades`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
@@ -53,8 +56,14 @@ function getPointGen() {
 	if (hasUpgrade('a', 23)) gain = gain.times(5)
 	if (hasUpgrade('a', 24)) gain = gain.times(3)
 	if (hasUpgrade('a', 25)) gain = gain.times(3)
+	if (hasUpgrade('a', 32)) gain = gain.times(10)
+	if (hasUpgrade('a', 33)) gain = gain.times(player.points.add(10).log(10))
+	if (hasUpgrade('a', 34)) gain = gain.times(gain.pow(1.01))
 
 	if (hasUpgrade('b', 11)) gain = gain.times(3)
+	if (hasUpgrade('b', 12)) gain = gain.times(2)
+	if (hasUpgrade('b', 13)) gain = gain.times(player.b.points.sqrt().add(1))
+	if (hasUpgrade('b', 22)) mult = mult.times(5)
 	return gain
 }
 
