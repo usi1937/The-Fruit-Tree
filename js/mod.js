@@ -13,12 +13,16 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.1",
-	name: "COCONUT",
+	num: "1.1.1",
+	name: "Fixes/Nerfs",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<h3>v1.1</h3><br><br>
+	<h3>v1.1.1</h3><br><br>
+		12/2/2022<br>
+		-Nerfed Bananas by alot<br>
+		-Fixed ALOT of bugs<br>
+		-Added an extra coconut upgrade and a coconut milestone<br><br>
 		12/1/2022<br>
 		-More banana upgrades and milestones<br>
 		-Coconut layer with an upgrade<br><br>
@@ -63,7 +67,9 @@ function getPointGen() {
 	if (hasUpgrade('b', 11)) gain = gain.times(3)
 	if (hasUpgrade('b', 12)) gain = gain.times(2)
 	if (hasUpgrade('b', 13)) gain = gain.times(player.b.points.sqrt().add(1))
-	if (hasUpgrade('b', 22)) mult = mult.times(5)
+	if (hasUpgrade('b', 22)) gain = gain.times(5)
+
+	if (hasUpgrade('c', 12)) gain = gain.times(10)
 	return gain
 }
 

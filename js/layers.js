@@ -153,12 +153,19 @@ addLayer("b", {
     baseAmount() { return player.a.points }, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.5, // Prestige currency exponent
+    doReset(layer) {
+        if (layers[layer].row < layers[this.layer].row || layers[layer].position <= layers[this.layer].position) return;
+        const keep = []
+        if (hasMilestone('c', 0)) keep.push("milestones")
+        layerDataReset(this.layer, keep)
+    },
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         if (hasUpgrade('a', 35)) mult = mult.times(3)
 
         if (hasUpgrade('b', 21)) mult = mult.times(2)
         if (hasUpgrade('b', 23)) mult = mult.times(2)
+
         if (hasUpgrade('c', 11)) mult = mult.times(4)
         return mult
     },
@@ -169,7 +176,7 @@ addLayer("b", {
     hotkeys: [
         { key: "b", description: "b: Reset for Bananas", onPress() { if (canReset(this.layer)) doReset(this.layer) } },
     ],
-    layerShown() { return hasUpgrade('a', 25) || player.c.unlocked },
+    layerShown() { return hasUpgrade('a', 25) || player.c.unlocked || player.b.unlocked },
     milestones: {
         0: {
             requirementDescription: "5 Bananas",
@@ -177,9 +184,9 @@ addLayer("b", {
             done() { return player.b.points.gte(5) },
         },
         1: {
-            requirementDescription: "250 Bananas",
+            requirementDescription: "50 Bananas",
             effectDescription: "Gain 100% of Apple gain per second",
-            done() { return player.b.points.gte(250) },
+            done() { return player.b.points.gte(50) },
         },
     },
     upgrades: {
@@ -210,17 +217,17 @@ addLayer("b", {
         21: {
             title: "Fruit Ninja",
             description: "Gain twice as much Banana and Apple",
-            cost: new Decimal("2.5e3")
+            cost: new Decimal("40")
         },
         22: {
             title: "Apple Seeds",
             description: "Gain 5x as much Apple and Seed",
-            cost: new Decimal("3e3")
+            cost: new Decimal("250")
         },
         23: {
             title: "Banana Box",
             description: "x2 Bananas and unbox new Apple upgrades",
-            cost: new Decimal("5e3")
+            cost: new Decimal("3e3")
         },
         24: {
             title: "",
@@ -235,7 +242,7 @@ addLayer("b", {
 addLayer("c", {
     name: "Coconuts", // This is optional, only used in a few places, If absent it just uses the layer id.
     symbol: "C", // This appears on the layer's node. Default is the id with the first letter capitalized
-    position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    position: 1, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
     branches: ["a", "b"],
     startData() {
         return {
@@ -264,12 +271,22 @@ addLayer("c", {
     ],
     layerShown() { return hasUpgrade('b', 24) || player.c.unlocked},
     milestones: {
+        0: {
+            requirementDescription: "4 Coconut",
+            effectDescription: "Keep Banana milestones on reset",
+            done() { return player.c.points.gte(4) },
+        },
     },
     upgrades: {
         11: {
             title: "Coconuts for days",
             description: "Gain 4 times more Apples and Bananas",
             cost: new Decimal(1)
+        },
+        12: {
+            title: "Coconut Seeds",
+            description: "Gain x10 Seed",
+            cost: new Decimal(3)
         },
     },
 })
