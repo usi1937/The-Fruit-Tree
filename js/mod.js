@@ -13,12 +13,15 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.1.1",
-	name: "Fixes/Nerfs",
+	num: "1.2",
+	name: "Milk",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<h3>v1.1.1</h3><br><br>
+	<h3>v1.2</h3><br><br>
+		12/4/2022<br>
+		-Coconut Milk with ALOT of Upgrades <br>
+		-Dragonfruit layer with an upgrade and some milestones<br><br>
 		12/2/2022<br>
 		-Nerfed Bananas by alot<br>
 		-Fixed ALOT of bugs<br>
@@ -62,7 +65,7 @@ function getPointGen() {
 	if (hasUpgrade('a', 25)) gain = gain.times(3)
 	if (hasUpgrade('a', 32)) gain = gain.times(10)
 	if (hasUpgrade('a', 33)) gain = gain.times(player.points.add(10).log(10))
-	if (hasUpgrade('a', 34)) gain = gain.times(gain.pow(1.01))
+	if (hasUpgrade('a', 34)) gain = gain.pow(2)
 
 	if (hasUpgrade('b', 11)) gain = gain.times(3)
 	if (hasUpgrade('b', 12)) gain = gain.times(2)
@@ -70,6 +73,14 @@ function getPointGen() {
 	if (hasUpgrade('b', 22)) gain = gain.times(5)
 
 	if (hasUpgrade('c', 12)) gain = gain.times(10)
+	if (hasUpgrade('c', 13)) gain = gain.times(3)
+	if (hasUpgrade('c', 14)) gain = gain.pow(1.2)
+	if (hasUpgrade('c', 23)) gain = gain.times(player.c.points.add(10).log(10))
+	if (hasUpgrade('c', 44)) gain = gain.times("1e50")
+
+	if (hasUpgrade('cm', 45)) gain = gain.pow(1.2)
+
+	if (hasUpgrade('d', 11)) gain = gain.times(10)
 	return gain
 }
 
