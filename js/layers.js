@@ -462,7 +462,7 @@ addLayer("cm", {
         }
     },
     color: "#cfcfcf",
-    requires: new Decimal("1e14"), // Can be a function that takes requirement increases into account
+    requires: new Decimal("2.5e13"), // Can be a function that takes requirement increases into account
     resource: "Coconut Milk", // Name of prestige currency
     baseResource: "Coconuts", // Name of resource prestige is based on
     baseAmount() { return player.c.points }, // Get the current amount of baseResource
@@ -650,7 +650,7 @@ addLayer("cm", {
         //"prestige-button",
         "blank",
         ["display-text",
-            function () { return 'You are gaining ' + format(player.cm.points) + ' Coconut Milk per second <br>(Starts at 1.00e14 Coconuts)' }],
+            function () { return 'You are gaining ' + format(player.cm.points) + ' Coconut Milk per second <br>(Starts at 2.50e13 Coconuts)' }],
         "blank",
         ["display-text",
             function () { return 'You have ' + format(player.cm.points) + ' Coconut Milk' }],
