@@ -485,7 +485,7 @@ addLayer("cm", {
         if (hasUpgrade('cm', 11)) mult = mult.times(2)
         if (hasUpgrade('cm', 12)) mult = mult.times(player.c.points.add(10).log(3))
         if (hasUpgrade('cm', 13)) mult = mult.times(5)
-        if (hasUpgrade('cm', 15)) mult = mult.pow(1.4)
+        if (hasUpgrade('cm', 14)) mult = mult.pow(1.4)
         if (hasUpgrade('cm', 21)) mult = mult.times(15)
         if (hasUpgrade('cm', 22)) mult = mult.times(19.47)
         if (hasUpgrade('cm', 23)) mult = mult.times(12)
