@@ -42,6 +42,7 @@ addLayer("a", {
         if (hasUpgrade('cm', 54)) mult = mult.times("1e25")
 
         if (hasUpgrade('d', 11)) mult = mult.times(10)
+        if (hasUpgrade('d', 21)) mult = mult.pow("1.06")
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -185,6 +186,7 @@ addLayer("b", {
         if (hasUpgrade('cm', 53)) mult = mult.times("1e6")
 
         if (hasUpgrade('d', 11)) mult = mult.times(10)
+        if (hasUpgrade('d', 31)) mult = mult.pow(4)
 
         return mult
     },
@@ -302,8 +304,14 @@ addLayer("c", {
         if (hasUpgrade('cm', 25)) mult = mult.times(10)
         if (hasUpgrade('cm', 52)) mult = mult.times(50)
         if (hasUpgrade('cm', 55)) mult = mult.times("1e10")
+        if (hasUpgrade('cm', 61)) mult = mult.times("1e100")
+        if (hasUpgrade('cm', 62)) mult = mult.times("1e250")
+        if (hasUpgrade('cm', 63)) mult = mult.times("1e500")
+        if (hasUpgrade('cm', 64)) mult = mult.times("1e750")
+        if (hasUpgrade('cm', 65)) mult = mult.times("1e1000")
 
         if (hasUpgrade('d', 11)) mult = mult.times(10)
+        if (hasUpgrade('d', 12)) mult = mult.pow(1.2)
 
         return mult
     },
@@ -428,6 +436,30 @@ addLayer("c", {
             unlocked() { return hasUpgrade('cm', 25) },
             cost: new Decimal("1e23")
         },
+        51: {
+            title: "Milk 1",
+            description: "x1e10 Milk",
+            unlocked() { return hasUpgrade('d', 22) },
+            cost: new Decimal("1e510")
+        },
+        52: {
+            title: "Milk 2",
+            description: "x1e20 Milk",
+            unlocked() { return hasUpgrade('d', 22) },
+            cost: new Decimal("1e635")
+        },
+        53: {
+            title: "Milk 3",
+            description: "x1e40 Milk",
+            unlocked() { return hasUpgrade('d', 22) },
+            cost: new Decimal("1e942")
+        },
+        54: {
+            title: "Milk 4",
+            description: "x1e100 Milk",
+            unlocked() { return hasUpgrade('d', 22) },
+            cost: new Decimal("1e1544")
+        },
     },
 
     tabFormat: {
@@ -472,6 +504,7 @@ addLayer("cm", {
     doReset(layer) {
         if (layers[layer].position <= layers[this.layer].position) return;
         const keep = []
+        if (hasMilestone('d', 2)) keep.push("upgrades")
         layerDataReset(this.layer, keep)
     },
     gainMult() { // Calculate the multiplier for main currency from bonuses
@@ -481,6 +514,10 @@ addLayer("cm", {
         if (hasUpgrade('c', 42)) mult = mult.pow(1.25)
         if (hasUpgrade('c', 43)) mult = mult.times(player.c.points.add(10).log(1.8))
         if (hasUpgrade('c', 44)) mult = mult.times(10)
+        if (hasUpgrade('c', 51)) mult = mult.times("1e10")
+        if (hasUpgrade('c', 52)) mult = mult.times("1e20")
+        if (hasUpgrade('c', 53)) mult = mult.times("1e40")
+        if (hasUpgrade('c', 54)) mult = mult.times("1e100")
 
         if (hasUpgrade('cm', 11)) mult = mult.times(2)
         if (hasUpgrade('cm', 12)) mult = mult.times(player.c.points.add(10).log(3))
@@ -505,6 +542,11 @@ addLayer("cm", {
         if (hasUpgrade('cm', 53)) mult = mult.times("1e6")
         if (hasUpgrade('cm', 54)) mult = mult.times("1e30")
         if (hasUpgrade('cm', 55)) mult = mult.times("1e11")
+        if (hasUpgrade('cm', 64)) mult = mult.times("1e50")
+
+        if (hasUpgrade('d', 12)) mult = mult.times("50")
+        if (hasUpgrade('d', 21)) mult = mult.times("5")
+        if (hasUpgrade('d', 33)) mult = mult.times("5")
 
         return mult
     },
@@ -643,6 +685,36 @@ addLayer("cm", {
             description: "x1e11 Milk, x1e10 Coconut and unlock a new layer",
             cost: new Decimal("5e88"),
         },
+        61: {
+            title: "Coconut 1",
+            description: "x1e100 Coconut",
+            unlocked() { return hasUpgrade('d', 22) },
+            cost: new Decimal("2e135"),
+        },
+        62: {
+            title: "Coconut 2",
+            description: "x1e250 Coconut",
+            unlocked() { return hasUpgrade('d', 22) },
+            cost: new Decimal("1e199"),
+        },
+        63: {
+            title: "Coconut 3",
+            description: "x1e500 Coconut",
+            unlocked() { return hasUpgrade('d', 22) },
+            cost: new Decimal("1e326"),
+        },
+        64: {
+            title: "Coconut 4",
+            description: "x1e750 Coconut, x1e50 Milk",
+            unlocked() { return hasUpgrade('d', 22) },
+            cost: new Decimal("2.5e643"),
+        },
+        65: {
+            title: "Coconut 5",
+            description: "x1e1000 Coconut",
+            unlocked() { return hasUpgrade('d', 22) },
+            cost: new Decimal("1e695"),
+        },
     },
 
     tabFormat: [
@@ -677,7 +749,7 @@ addLayer("d", {
     baseResource: "Coconut", // Name of resource prestige is based on
     baseAmount() { return player.c.points }, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    exponent: 0.1, // Prestige currency exponent
+    exponent: 0.02, // Prestige currency exponent
     doReset(layer) {
         if (layers[layer].position <= layers[this.layer].position) return;
         const keep = []
@@ -701,12 +773,17 @@ addLayer("d", {
         0: {
             requirementDescription: "5 Dragonfruit",
             effectDescription: "Keep Coconut upgrades on all resets",
-            done() { return player.d.points.gte(5) },
+            done() { return player.d.points.gte("5") },
         },
         1: {
             requirementDescription: "1e3 Dragonfruit",
             effectDescription: "Keep Coconut milestones on all resets",
             done() { return player.d.points.gte("1e3") },
+        },
+        2: {
+            requirementDescription: "1e100 Dragonfruit",
+            effectDescription: "Keep Milk upgrades on all resets",
+            done() { return player.d.points.gte("1e100") },
         },
     },
     upgrades: {
@@ -714,6 +791,46 @@ addLayer("d", {
             title: "New Fruit",
             description: "x100 Everything except Milk",
             cost: new Decimal("1"),
+        },
+        12: {
+            title: "B",
+            description: "^1.2 Coconuts and x50 Milk",
+            cost: new Decimal("1"),
+        },
+        13: {
+            title: "Seedy",
+            description: "Power Seed gain by ^1.02",
+            cost: new Decimal("2"),
+        },
+        21: {
+            title: "More and More",
+            description: "Gain x5 Milk and power Apple gain by ^1.06",
+            cost: new Decimal("10e3"),
+        },
+        22: {
+            title: "Even More",
+            description: "Unlock more Coconut and Milk upgrades",
+            cost: new Decimal("20e3"),
+        },
+        23: {
+            title: "BIG JUMP",
+            description: "Power Seed gain by ^1.015",
+            cost: new Decimal("1.5e67"),
+        },
+        31: {
+            title: "More Powers",
+            description: "Power Banana gain by ^4",
+            cost: new Decimal("2.5e78"),
+        },
+        32: {
+            title: "POWAR",
+            description: "Power Seed gain by ^1.0007",
+            cost: new Decimal("1e88"),
+        },
+        33: {
+            title: "POWAR MILK",
+            description: "get x5 Milk",
+            cost: new Decimal("1e90"),
         },
     },
 

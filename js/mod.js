@@ -13,12 +13,15 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.2",
-	name: "Milk",
+	num: "1.3",
+	name: "Dragonfruit",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
 	<h3>v1.2</h3><br><br>
+		12/7/2022<br>
+		-Dragonfruit upgrades and some milestones <br>
+		-More Coconut and Milk upgrades<br><br>
 		12/4/2022<br>
 		-Coconut Milk with ALOT of Upgrades <br>
 		-Dragonfruit layer with an upgrade and some milestones<br><br>
@@ -81,6 +84,9 @@ function getPointGen() {
 	if (hasUpgrade('cm', 45)) gain = gain.pow(1.2)
 
 	if (hasUpgrade('d', 11)) gain = gain.times(10)
+	if (hasUpgrade('d', 13)) gain = gain.pow(1.02)
+	if (hasUpgrade('d', 23)) gain = gain.pow(1.015)
+	if (hasUpgrade('d', 32)) gain = gain.pow(1.0007)
 	return gain
 }
 
@@ -94,7 +100,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("e280000000"))
+	return player.points.gte(new Decimal("eee1e308"))
 }
 
 
